@@ -65,11 +65,15 @@
 
 
 
-<div id="container"></div>
+<div id="historikk"></div>
+
+<h2>Værmelding fra yr.no</h2>
+<div id="yr"></div>
 
 
 
-<!-- Contact Container -->
+
+    <!-- Contact Container -->
 <div class="w3-container w3-padding-64 w3-theme-l5" id="contact">
     <div class="w3-row">
         <div class="w3-col m5">
@@ -104,25 +108,24 @@
 </footer>
 
 
-<script src="historikk_dag.js"></script>
-<script>
+<script src="script/historikk_dag.js"></script>
+<script src="script/yr.js"></script>
+
+    <script>
+    $.getJSON('http://weather.molde.vgs.no/api/day', function (data) {
+        // Create the chart
+        var temp = data['outTemp'][data['outTemp'].length-1];
+        var vindhastighet = data['windSpeed'][data['windSpeed'].length-1];
+        var vindhretning = data['windDir'][data['windDir'].length-1];
+
+        console.log(temp);
+        document.querySelector('.temp').innerHTML = temp + "C"
+        document.querySelector('.vindhastighet').innerHTML = vindhastighet + "m/s";
+        document.querySelector('.vindretning').style.transform = "rotate("+vindhretning+"deg)";
 
 
-
-        $.getJSON('http://weather.molde.vgs.no/api/day', function (data) {
-            // Create the chart
-            var temp = data['outTemp'][data['outTemp'].length-1];
-            var vindhastighet = data['windSpeed'][data['windSpeed'].length-1];
-            var vindhretning = data['windDir'][data['windDir'].length-1];
-
-            console.log(temp);
-            document.querySelector('.temp').innerHTML = temp + "C"
-            document.querySelector('.vindhastighet').innerHTML = vindhastighet + "m/s";
-            document.querySelector('.vindretning').style.transform = "rotate("+vindhretning+"deg)";
-
-
-        });
-    </script>
+    });
+</script>
 
 
 <script>
